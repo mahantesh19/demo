@@ -1,1 +1,19 @@
-dmNmIGRlZmluaXRpb24gPFZSRiBuYW1lIHVzZXIgaW5wdXQ+CnJkIDxhcy1udW1iZXI+Ojxsb29wYmFjazAgaXAgYWRkcmVzcz4Kcm91dGUtdGFyZ2V0IGV4cG9ydCA8ZnJvbSB1c2VyIGlucHV0Pgpyb3V0ZS10YXJnZXQgaW1wb3J0IDxmcm9tIHVzZXIgaW5wdXQ+CgohCmFkZHJlc3MtZmFtaWx5IGlwdjQKZXhpdC1hZGRyZXNzLWZhbWlseQoKaW50ZXJmYWNlIDxuZW80aiB3aGljaCBpbnRlcmZhY2UgY29ubmVjdGVkIHRvIENFIHJvdXRlcj4KICBpcCBhZGRyZXNzIDxpcC1hZGRyZXNzIG9mIHBlIHJvdXRlciBpbnRlcmZhY2U+CiAgdnJmIGZvcndhcmRpbmcgPFZSRiBuYW1lIHVzZXIgaW5wdXQ+IAoKcm91dGVyIGJncCA8bmVvNGogYXMtbnVtYmVyIG9uIHBlIHNpZGU+ICAKIQphZGRyZXNzLWZhbWlseSBpcHY0IHZyZiA8VlJGIG5hbWUgdXNlciBpbnB1dD4KIG5laWdoYm91ciA8b24gdGhlIGNlIHJvdXRlciwgdGhlIGludGVyZmFjZSBpcD4gcmVtb3RlLWFzIDxuZW80aiBhcy1udW1iZXIgb24gY2Ugc2lkZT4gIAogbmVpZ2hib3VyIDxvbiB0aGUgY2Ugcm91dGVyLCB0aGUgaW50ZXJmYWNlIGlwPiBhY3RpdmF0ZSAKZXhpdC1hZGRyZXNzLWZhbWlseSBlbmQgCg==
+vrf definition <VRF name user input>
+ rd <as-number>:<loopback0 ip address>
+ route-target export <from user input>
+ route-target import <from user input>
+ !
+ address-family ipv4
+ exit-address-family
+
+interface <neo4j which interface connected to CE router>
+  ip address <ip-address of pe router interface>
+  vrf forwarding <VRF name user input> 
+
+router bgp <neo4j as-number on pe side>  
+!
+ address-family ipv4 vrf <VRF name user input>
+  neighbour <on the ce router, the interface ip> remote-as <neo4j as-number on ce side>  
+  neighbour <on the ce router, the interface ip> activate  
+ exit-address-family 
+end 
